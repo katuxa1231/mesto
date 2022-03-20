@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Место</title>
+</head>
+
+<body class="page">
+
+  <header class="header">
+    <img class="header__logo" alt="Логотип Место" src="./images/header-logo.svg">
+  </header>
+
+  <main class="content">
+    <section class="profile">
+      <div class="profile__content">
+        <img class="profile__avatar" alt="Аватар" src="./images/avatar.jpg">
+        <div class="profile__info">
+          <div class="profile__wrap">
+            <h1 class="profile__title">Жак-Ив Кусто</h1>
+            <button class="profile__edit-button" aria-label="Редактировать"></button>
+          </div>
+          <p class="profile__subtitle">Исследователь океана</p>
+        </div>
+      </div>
+      <button class="profile__add-button" aria-label="Добавить"></button>
+    </section>
+
+    <section>
+      <ul class="photo-cards">
+        <li class="photo-card">
+          <img class="photo-card__image" alt="Карачаевск" src="./images/photo-cards_karachaevsk.jpg">
+          <div class="photo-card__wrap">
+            <h2 class="photo-card__title">Карачаевск</h2>
+            <button class="photo-card__like-button" aria-label="Нравится"></button>
+          </div>
+        </li>
+        <li class="photo-card">
+          <img class="photo-card__image" alt="Гора Эльбрус" src="./images/photo-cards_elbrus.jpg">
+          <div class="photo-card__wrap">
+            <h2 class="photo-card__title">Гора Эльбрус</h2>
+            <button class="photo-card__like-button"></button>
+          </div>
+        </li>
+        <li class="photo-card">
+          <img class="photo-card__image" alt="Домбай" src="./images/photo-cards_dombay.jpg">
+          <div class="photo-card__wrap">
+            <h2 class="photo-card__title">Домбай</h2>
+            <button class="photo-card__like-button"></button>
+          </div>
+        </li>
+        <li class="photo-card">
+          <img class="photo-card__image" alt="Гора Эльбрус" src="./images/photo-cards_elbrus.jpg">
+          <div class="photo-card__wrap">
+            <h2 class="photo-card__title">Гора Эльбрус</h2>
+            <button class="photo-card__like-button"></button>
+          </div>
+        </li>
+        <li class="photo-card">
+          <img class="photo-card__image" alt="Домбай" src="./images/photo-cards_dombay.jpg">
+          <div class="photo-card__wrap">
+            <h2 class="photo-card__title">Домбай</h2>
+            <button class="photo-card__like-button"></button>
+          </div>
+        </li>
+        <li class="photo-card">
+          <img class="photo-card__image" alt="Карачаевск" src="./images/photo-cards_karachaevsk.jpg">
+          <div class="photo-card__wrap">
+            <h2 class="photo-card__title">Карачаево-Черкессия</h2>
+            <button class="photo-card__like-button"></button>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+  </footer>
+
+  <section class="popup">
+    <div class="popup__container">
+      <button class="popup__close-button" aria-label="Закрыть"></button>
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form class="form">
+        <input class="form__input form__input-name" type="text">
+        <input class="form__input form__input-job" type="text">
+        <button class="form__save-profile-button" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </section>
+  <script src="index.js"></script>
+</body>
+
+</html>

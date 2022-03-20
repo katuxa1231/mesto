@@ -1,0 +1,22 @@
+.photo-cards {
+  padding: 0;
+  margin: 0 0 46px;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 282px;
+  gap: 20px 17px;
+  justify-content: center;
+}
+
+@media screen and (min-width: 768px) {
+  .photo-cards {
+    grid-template-columns: repeat(2, 282px);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .photo-cards {
+    grid-template-columns: repeat(3, 282px);
+    margin-bottom: 66px;
+  }
+}

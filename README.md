@@ -10,3 +10,4 @@ HTML, CSS, выравнивания и построения сетки, адап
 
 **Ссылка на GitHub Pages**
 
+ https://katuxa1231.github.io/mesto/

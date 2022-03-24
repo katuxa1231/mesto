@@ -5,6 +5,7 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
+  transition: opacity 1s;
 }
 
 .photo-card__like-button:hover {

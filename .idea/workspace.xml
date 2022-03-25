@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5883a467-eb9c-4ccb-bf90-38b0eb11e407" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/blocks/footer/footer.css" beforeDir="false" afterPath="$PROJECT_DIR$/blocks/footer/footer.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blocks/form/__save-profile-button/form__save-profile-button.css" beforeDir="false" afterPath="$PROJECT_DIR$/blocks/form/__save-profile-button/form__save-profile-button.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blocks/page/page.css" beforeDir="false" afterPath="$PROJECT_DIR$/blocks/page/page.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blocks/photo-card/__image/photo-card__image.css" beforeDir="false" afterPath="$PROJECT_DIR$/blocks/photo-card/__image/photo-card__image.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blocks/photo-cards/photo-cards.css" beforeDir="false" afterPath="$PROJECT_DIR$/blocks/photo-cards/photo-cards.css" afterDir="false" />
-    </list>
+    <list default="true" id="5883a467-eb9c-4ccb-bf90-38b0eb11e407" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,7 +38,7 @@
       <updated>1647763985334</updated>
       <workItem from="1647763987883" duration="2403000" />
       <workItem from="1647774053011" duration="31000" />
-      <workItem from="1647776299886" duration="897000" />
+      <workItem from="1647776299886" duration="898000" />
     </task>
     <servers />
   </component>

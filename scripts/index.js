@@ -24,8 +24,8 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-const editButton = document.querySelector('.profile__edit-button');
-const addButton = document.querySelector('.profile__add-button');
+const buttonEdit = document.querySelector('.profile__edit-button');
+const buttonAdd = document.querySelector('.profile__add-button');
 
 const popupEdit = document.querySelector('.popup_edit');
 const popupEditCloseButton = popupEdit.querySelector('.popup__close-button');
@@ -43,6 +43,7 @@ const formAdd = document.querySelector('.form_add');
 const placeInput = formAdd.querySelector('.form__input-place');
 const urlInput = formAdd.querySelector('.form__input-url');
 
+const cardTemplate = document.querySelector('#card-template').content;
 const cardContainer = document.querySelector('.photo-cards');
 
 const popupView = document.querySelector('.popup_view-image');
@@ -71,7 +72,6 @@ function init(container, cards) {
 }
 
 function createCard(title, link) {
-  const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.querySelector('.photo-card').cloneNode(true);
   const image = cardElement.querySelector('.photo-card__image');
   const likeButton = cardElement.querySelector('.photo-card__like-button');
@@ -97,7 +97,7 @@ function createCard(title, link) {
   return cardElement;
 }
 
-function formSubmitHandlerAddCard(evt) {
+function handleFormAddSubmit(evt) {
   evt.preventDefault();
   const newCard = createCard(placeInput.value, urlInput.value);
   cardContainer.prepend(newCard);
@@ -105,41 +105,41 @@ function formSubmitHandlerAddCard(evt) {
   closePopup(popupAdd);
 }
 
-function popupViewCloseButtonClickHandler() {
-  closePopup(popupView);
-}
-
-function editButtonClickHandler() {
-  openPopup(popupEdit);
-  fillProfileForm();
-}
-
-function addButtonClickHandler() {
-  openPopup(popupAdd);
-}
-
-function closeButtonEditClickHandler() {
-  closePopup(popupEdit);
-}
-
-function closeButtonAddClickHandler() {
-  closePopup(popupAdd);
-}
-
-function formSubmitHandler(evt) {
+function handleFormEditSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
   closePopup(popupEdit);
 }
 
-editButton.addEventListener('click', editButtonClickHandler);
-addButton.addEventListener('click', addButtonClickHandler);
-popupEditCloseButton.addEventListener('click', closeButtonEditClickHandler);
-popupAddCloseButton.addEventListener('click', closeButtonAddClickHandler);
-formEdit.addEventListener('submit', formSubmitHandler);
-formAdd.addEventListener('submit', formSubmitHandlerAddCard);
-popupViewCloseButton.addEventListener('click', popupViewCloseButtonClickHandler);
+function handleEditButtonClick() {
+  openPopup(popupEdit);
+  fillProfileForm();
+}
+
+function handleAddButtonClick() {
+  openPopup(popupAdd);
+}
+
+function handlePopupEditCloseButtonClick() {
+  closePopup(popupEdit);
+}
+
+function handlePopupAddCloseButtonClick() {
+  closePopup(popupAdd);
+}
+
+function handlePopupViewCloseButtonClick() {
+  closePopup(popupView);
+}
+
+buttonEdit.addEventListener('click', handleEditButtonClick);
+buttonAdd.addEventListener('click', handleAddButtonClick);
+popupEditCloseButton.addEventListener('click', handlePopupEditCloseButtonClick);
+popupAddCloseButton.addEventListener('click', handlePopupAddCloseButtonClick);
+popupViewCloseButton.addEventListener('click', handlePopupViewCloseButtonClick);
+formEdit.addEventListener('submit', handleFormEditSubmit);
+formAdd.addEventListener('submit', handleFormAddSubmit);
 
 init(cardContainer, initialCards);
 

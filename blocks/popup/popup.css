@@ -6,5 +6,7 @@
   left: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.3s, opacity 0.3s linear;
 }

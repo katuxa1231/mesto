@@ -31,48 +31,6 @@
 
     <section>
       <ul class="photo-cards">
-        <li class="photo-card">
-          <img class="photo-card__image" alt="Карачаевск" src="./images/photo-cards_karachaevsk.jpg">
-          <div class="photo-card__wrap">
-            <h2 class="photo-card__title">Карачаевск</h2>
-            <button class="photo-card__like-button" aria-label="Нравится"></button>
-          </div>
-        </li>
-        <li class="photo-card">
-          <img class="photo-card__image" alt="Гора Эльбрус" src="./images/photo-cards_elbrus.jpg">
-          <div class="photo-card__wrap">
-            <h2 class="photo-card__title">Гора Эльбрус</h2>
-            <button class="photo-card__like-button"></button>
-          </div>
-        </li>
-        <li class="photo-card">
-          <img class="photo-card__image" alt="Домбай" src="./images/photo-cards_dombay.jpg">
-          <div class="photo-card__wrap">
-            <h2 class="photo-card__title">Домбай</h2>
-            <button class="photo-card__like-button"></button>
-          </div>
-        </li>
-        <li class="photo-card">
-          <img class="photo-card__image" alt="Гора Эльбрус" src="./images/photo-cards_elbrus.jpg">
-          <div class="photo-card__wrap">
-            <h2 class="photo-card__title">Гора Эльбрус</h2>
-            <button class="photo-card__like-button"></button>
-          </div>
-        </li>
-        <li class="photo-card">
-          <img class="photo-card__image" alt="Домбай" src="./images/photo-cards_dombay.jpg">
-          <div class="photo-card__wrap">
-            <h2 class="photo-card__title">Домбай</h2>
-            <button class="photo-card__like-button"></button>
-          </div>
-        </li>
-        <li class="photo-card">
-          <img class="photo-card__image" alt="Карачаевск" src="./images/photo-cards_karachaevsk.jpg">
-          <div class="photo-card__wrap">
-            <h2 class="photo-card__title">Карачаево-Черкессия</h2>
-            <button class="photo-card__like-button"></button>
-          </div>
-        </li>
       </ul>
     </section>
   </main>
@@ -81,17 +39,50 @@
     <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
   </footer>
 
-  <section class="popup">
-    <div class="popup__container">
+  <section class="popup popup_edit">
+    <div class="popup__container popup__container_form">
       <button class="popup__close-button" aria-label="Закрыть"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="form">
+      <form class="form form_edit">
         <input class="form__input form__input-name" type="text">
         <input class="form__input form__input-job" type="text">
         <button class="form__save-profile-button" type="submit">Сохранить</button>
       </form>
     </div>
   </section>
+
+  <section class="popup popup_add">
+    <div class="popup__container popup__container_form">
+      <button class="popup__close-button" aria-label="Закрыть"></button>
+      <h2 class="popup__title">Новое место</h2>
+      <form class="form form_add">
+        <input class="form__input form__input-place" type="text" placeholder="Название">
+        <input class="form__input form__input-url" type="text" placeholder="Ссылка на картинку">
+        <button class="form__save-profile-button" type="submit">Создать</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="popup popup_view-image">
+    <div class="popup__container">
+      <button class="popup__close-button" aria-label="Закрыть"></button>
+      <figure class="popup__figure">
+        <img class="popup__image" src="./images/photo-cards_elbrus.jpg">
+        <figcaption class="popup__caption"></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <template id="card-template">
+    <li class="photo-card">
+      <img class="photo-card__image" src=".">
+      <button class="photo-card__delete-button"></button>
+      <div class="photo-card__wrap">
+        <h2 class="photo-card__title"></h2>
+        <button class="photo-card__like-button"></button>
+      </div>
+    </li>
+  </template>
   <script src="./scripts/index.js"></script>
 </body>
 

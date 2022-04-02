@@ -3,20 +3,5 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 25px 22px;
-  width: calc(100% - 38px);
-  min-width: 282px;
-  max-width: 430px;
-  min-height: 322px;
-  background: #fff;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
   box-sizing: border-box;
-}
-
-@media screen and (min-width: 1024px) {
-  .popup__container {
-    padding: 34px 36px 37px;
-    min-height: 330px;
-  }
 }

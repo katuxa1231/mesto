@@ -43,10 +43,16 @@
     <div class="popup__container popup__container_form">
       <button class="popup__close-button" aria-label="Закрыть"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="form form_edit">
-        <input class="form__input form__input-name" type="text">
-        <input class="form__input form__input-job" type="text">
-        <button class="form__save-profile-button" type="submit">Сохранить</button>
+      <form class="form form_edit" novalidate>
+        <div class="form__input-wrapper">
+          <input id="name-input" class="form__input form__input-name" type="text" required minlength="2" maxlength="40">
+          <span class="name-input-error form__input-error"></span>
+        </div>
+        <div class="form__input-wrapper">
+          <input id="job-input" class="form__input form__input-job" type="text" required minlength="2" maxlength="200">
+          <span class="job-input-error form__input-error"></span>
+        </div>
+        <button class="form__submit-button" type="submit">Сохранить</button>
       </form>
     </div>
   </section>
@@ -55,10 +61,18 @@
     <div class="popup__container popup__container_form">
       <button class="popup__close-button" aria-label="Закрыть"></button>
       <h2 class="popup__title">Новое место</h2>
-      <form class="form form_add">
-        <input class="form__input form__input-place" type="text" placeholder="Название">
-        <input class="form__input form__input-url" type="text" placeholder="Ссылка на картинку">
-        <button class="form__save-profile-button" type="submit">Создать</button>
+      <form class="form form_add" novalidate>
+        <div class="form__input-wrapper">
+          <input id="place-input" class="form__input form__input-place" type="text" placeholder="Название" required
+            minlength="2" maxlength="30">
+          <span class="place-input-error form__input-error"></span>
+        </div>
+        <div class="form__input-wrapper">
+          <input id="url-input" class="form__input form__input-url" type="url" placeholder="Ссылка на картинку"
+            required>
+          <span class="url-input-error form__input-error"></span>
+        </div>
+        <button class="form__submit-button" type="submit">Создать</button>
       </form>
     </div>
   </section>
@@ -67,7 +81,7 @@
     <div class="popup__container">
       <button class="popup__close-button" aria-label="Закрыть"></button>
       <figure class="popup__figure">
-        <img class="popup__image" src="./images/photo-cards_elbrus.jpg">
+        <img class="popup__image" alt="" src="./images/photo-cards_elbrus.jpg">
         <figcaption class="popup__caption"></figcaption>
       </figure>
     </div>
@@ -84,6 +98,7 @@
     </li>
   </template>
   <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 
 </html>

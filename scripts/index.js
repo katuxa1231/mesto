@@ -84,6 +84,7 @@ function createCard(title, link) {
     popupViewImage.src = link;
     popupCaption.textContent = title;
     openPopup(popupView);
+    addOverlayListeners(popupView);
   });
 
   likeButton.addEventListener('click', (evt) => {
@@ -95,6 +96,26 @@ function createCard(title, link) {
   });
 
   return cardElement;
+}
+
+function clearError(formElement) {
+  const inputErrorList = formElement.querySelectorAll('.form__input_type_error');
+  if (inputErrorList.length) {
+    inputErrorList.forEach((inputErrorElement) => {
+      inputErrorElement.classList.remove('form__input_type_error');
+      const errorElement = formElement.querySelector(`.${inputErrorElement.id}-error`);
+      errorElement.classList.remove('form__input-error_active');
+      errorElement.textContent = '';
+    });
+  }
+}
+
+function addOverlayListeners(overlay) {
+  overlay.addEventListener('click', handleOverlayClick);
+}
+
+function removeOverlayListeners(overlay) {
+  overlay.removeEventListener('click', handleOverlayClick);
 }
 
 function handleFormAddSubmit(evt) {
@@ -115,22 +136,44 @@ function handleFormEditSubmit(evt) {
 function handleEditButtonClick() {
   openPopup(popupEdit);
   fillProfileForm();
+  addOverlayListeners(popupEdit);
 }
 
 function handleAddButtonClick() {
   openPopup(popupAdd);
+  addOverlayListeners(popupAdd);
 }
 
 function handlePopupEditCloseButtonClick() {
   closePopup(popupEdit);
+  clearError(formEdit);
+  removeOverlayListeners(popupEdit);
 }
 
 function handlePopupAddCloseButtonClick() {
   closePopup(popupAdd);
+  clearError(formAdd);
+  removeOverlayListeners(popupAdd);
 }
 
 function handlePopupViewCloseButtonClick() {
   closePopup(popupView);
+  removeOverlayListeners(popupView);
+}
+
+function handleKeyDown(evt) {
+  if (evt.key === "Escape") {
+    const openedPopup = document.querySelector('.popup_opened');
+
+    if (openedPopup) {
+      closePopup(openedPopup);
+      removeOverlayListeners(openedPopup);
+    }
+  }
+}
+
+function handleOverlayClick(evt) {
+  closePopup(evt.target);
 }
 
 buttonEdit.addEventListener('click', handleEditButtonClick);
@@ -140,7 +183,6 @@ popupAddCloseButton.addEventListener('click', handlePopupAddCloseButtonClick);
 popupViewCloseButton.addEventListener('click', handlePopupViewCloseButtonClick);
 formEdit.addEventListener('submit', handleFormEditSubmit);
 formAdd.addEventListener('submit', handleFormAddSubmit);
+document.addEventListener('keydown', handleKeyDown);
 
 init(cardContainer, initialCards);
-
-

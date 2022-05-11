@@ -1,3 +1,6 @@
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -49,8 +52,6 @@ const cardTemplate = document.querySelector('#card-template').content;
 const cardContainer = document.querySelector('.photo-cards');
 
 const popupView = document.querySelector('.popup_view-image');
-const popupViewImage = popupView.querySelector('.popup__image');
-const popupCaption = popupView.querySelector('.popup__caption');
 const popupViewCloseButton = popupView.querySelector('.popup__close-button');
 
 function openPopup(popup) {
@@ -69,38 +70,10 @@ function fillProfileForm() {
 }
 
 function init(container, cards) {
-  cards.forEach((card) => {
-    const cardElement = createCard(card.name, card.link);
+  cards.forEach((cardData) => {
+    const cardElement = createCard(cardData.name, cardData.link);
     container.append(cardElement);
   });
-}
-
-function createCard(title, link) {
-  const cardElement = cardTemplate.querySelector('.photo-card').cloneNode(true);
-  const image = cardElement.querySelector('.photo-card__image');
-  const likeButton = cardElement.querySelector('.photo-card__like-button');
-  const deleteButton = cardElement.querySelector('.photo-card__delete-button');
-
-  cardElement.querySelector('.photo-card__title').textContent = title;
-  image.src = link;
-  image.alt = title;
-
-  image.addEventListener('click', () => {
-    popupViewImage.src = link;
-    popupViewImage.alt = title;
-    popupCaption.textContent = title;
-    openPopup(popupView);
-  });
-
-  likeButton.addEventListener('click', (evt) => {
-    evt.target.classList.toggle('photo-card__like-button_active');
-  });
-
-  deleteButton.addEventListener('click', () => {
-    cardElement.remove();
-  });
-
-  return cardElement;
 }
 
 function clearError(formElement) {
@@ -126,6 +99,19 @@ function addOverlayListeners(overlay) {
 
 function removeOverlayListeners(overlay) {
   overlay.removeEventListener('click', handleOverlayClick);
+}
+
+function enableValidation(params) {
+  const formList = document.querySelectorAll('.form');
+  formList.forEach((formElement) => {
+    const formValidator = new FormValidator(params, formElement);
+    formValidator.enableValidation();
+  });
+};
+
+function createCard(name, link) {
+  const card = new Card(name, link, cardTemplate);
+  return card.createCard();
 }
 
 function handleFormAddSubmit(evt) {
@@ -189,3 +175,13 @@ formAdd.addEventListener('submit', handleFormAddSubmit);
 document.addEventListener('keydown', handleKeyDown);
 
 init(cardContainer, initialCards);
+
+enableValidation({
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__submit-button',
+  inactiveButtonClass: 'form__submit-button_inactive',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+});
+
+export { openPopup };

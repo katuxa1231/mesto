@@ -54,14 +54,16 @@ const cardContainer = document.querySelector('.photo-cards');
 const popupView = document.querySelector('.popup_view-image');
 const popupViewCloseButton = popupView.querySelector('.popup__close-button');
 
+const formValidators = {};
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-  addOverlayListeners(popup);
+  addPopupListeners(popup);
 };
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  removeOverlayListeners(popup);
+  removePopupListeners(popup);
 };
 
 function fillProfileForm() {
@@ -76,38 +78,25 @@ function init(container, cards) {
   });
 }
 
-function clearError(formElement) {
-  const inputErrorList = formElement.querySelectorAll('.form__input_type_error');
-  if (inputErrorList.length) {
-    inputErrorList.forEach((inputErrorElement) => {
-      inputErrorElement.classList.remove('form__input_type_error');
-      const errorElement = formElement.querySelector(`.${inputErrorElement.id}-error`);
-      errorElement.classList.remove('form__input-error_active');
-      errorElement.textContent = '';
-    });
-  }
-}
-
-function disabledButton(button) {
-  button.classList.add('form__submit-button_inactive');
-  button.disabled = true;
-}
-
-function addOverlayListeners(overlay) {
+function addPopupListeners(overlay) {
   overlay.addEventListener('click', handleOverlayClick);
+  document.addEventListener('keydown', handleKeyDown);
 }
 
-function removeOverlayListeners(overlay) {
+function removePopupListeners(overlay) {
   overlay.removeEventListener('click', handleOverlayClick);
+  document.removeEventListener('keydown', handleKeyDown);
 }
 
 function enableValidation(params) {
   const formList = document.querySelectorAll('.form');
   formList.forEach((formElement) => {
     const formValidator = new FormValidator(params, formElement);
+    const formName = formElement.getAttribute('name')
+    formValidators[formName] = formValidator;
     formValidator.enableValidation();
   });
-};
+}
 
 function createCard(name, link) {
   const card = new Card(name, link, cardTemplate);
@@ -129,16 +118,14 @@ function handleFormEditSubmit(evt) {
 }
 
 function handleEditButtonClick() {
-  clearError(formEdit);
+  formValidators[formEdit.getAttribute('name')].resetValidation();
   fillProfileForm();
-  disabledButton(saveButtonEdit);
   openPopup(popupEdit);
 }
 
 function handleAddButtonClick() {
   formAdd.reset();
-  clearError(formAdd);
-  disabledButton(saveButtonAdd);
+  formValidators[formAdd.getAttribute('name')].resetValidation();
   openPopup(popupAdd);
 }
 
@@ -162,7 +149,9 @@ function handleKeyDown(evt) {
 }
 
 function handleOverlayClick(evt) {
-  closePopup(evt.target);
+  if (evt.target === evt.currentTarget) {
+    closePopup(evt.target);
+  }
 }
 
 buttonEdit.addEventListener('click', handleEditButtonClick);
@@ -172,7 +161,6 @@ popupAddCloseButton.addEventListener('click', handlePopupAddCloseButtonClick);
 popupViewCloseButton.addEventListener('click', handlePopupViewCloseButtonClick);
 formEdit.addEventListener('submit', handleFormEditSubmit);
 formAdd.addEventListener('submit', handleFormAddSubmit);
-document.addEventListener('keydown', handleKeyDown);
 
 init(cardContainer, initialCards);
 

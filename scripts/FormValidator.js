@@ -1,5 +1,5 @@
 export class FormValidator {
-  constructor(params, form){
+  constructor(params, form) {
     this._params = params;
     this._form = form;
   }
@@ -46,15 +46,37 @@ export class FormValidator {
 
   _setEventListeners(formElement, { inputSelector, submitButtonSelector, inactiveButtonClass, ...rest }) {
     const inputList = Array.from(formElement.querySelectorAll(inputSelector));
-    const buttonElement = formElement.querySelector(submitButtonSelector);
+    this._buttonElement = formElement.querySelector(submitButtonSelector);
 
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._isValid(formElement, inputElement, rest);
-        this._toggleButtonState(inputList, buttonElement, inactiveButtonClass);
+        this._toggleButtonState(inputList, this._buttonElement, inactiveButtonClass);
       });
     });
   };
+
+  _disabledButton() {
+    this._buttonElement.classList.add('form__submit-button_inactive');
+    this._buttonElement.disabled = true;
+  }
+
+  _clearError() {
+    const inputErrorList = this._form.querySelectorAll('.form__input_type_error');
+    if (inputErrorList.length) {
+      inputErrorList.forEach((inputErrorElement) => {
+        inputErrorElement.classList.remove('form__input_type_error');
+        const errorElement = this._form.querySelector(`.${inputErrorElement.id}-error`);
+        errorElement.classList.remove('form__input-error_active');
+        errorElement.textContent = '';
+      });
+    }
+  }
+
+  resetValidation() {
+    this._disabledButton();
+    this._clearError();
+  }
 
   enableValidation() {
     this._setEventListeners(this._form, this._params);

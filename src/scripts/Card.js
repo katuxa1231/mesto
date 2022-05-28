@@ -1,21 +1,15 @@
-import { openPopup } from './index.js';
-
 export class Card {
-  constructor(title, link, template) {
+  constructor(title, link, template, handleCardClick) {
     this._title = title;
     this._link = link;
     this._template = template;
-    this._popupView = document.querySelector('.popup_view-image');
-    this._popupViewImage = this._popupView.querySelector('.popup__image');
-    this._popupCaption = this._popupView.querySelector('.popup__caption');
+
+    this._handleCardClick = handleCardClick;
   }
 
   _handleImageClick(title, link) {
     return () => {
-      this._popupViewImage.src = link;
-      this._popupViewImage.alt = title;
-      this._popupCaption.textContent = title;
-      openPopup(this._popupView);
+      this._handleCardClick(title, link)
     }
   }
 

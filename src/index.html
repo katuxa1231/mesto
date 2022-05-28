@@ -4,20 +4,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
   <title>Место</title>
 </head>
 
 <body class="page">
 
   <header class="header">
-    <img class="header__logo" alt="Логотип Место" src="./images/header-logo.svg">
+    <img class="header__logo" alt="Логотип Место" src="<%=require('./images/header-logo.svg')%>">
   </header>
 
   <main class="content">
     <section class="profile">
       <div class="profile__content">
-        <img class="profile__avatar" alt="Аватар" src="./images/avatar.jpg">
+        <img class="profile__avatar" alt="Аватар" src="<%=require('./images/avatar.jpg')%>">
         <div class="profile__info">
           <div class="profile__wrap">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -43,13 +42,13 @@
     <div class="popup__container popup__container_form">
       <button class="popup__close-button" aria-label="Закрыть"></button>
       <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="form form_edit" novalidate>
+      <form class="form form_edit" name="form-edit" novalidate>
         <div class="form__input-wrapper">
-          <input id="name-input" class="form__input form__input-name" type="text" required minlength="2" maxlength="40">
+          <input id="name-input" name="name" class="form__input form__input-name" type="text" required minlength="2" maxlength="40">
           <span class="name-input-error form__input-error"></span>
         </div>
         <div class="form__input-wrapper">
-          <input id="job-input" class="form__input form__input-job" type="text" required minlength="2" maxlength="200">
+          <input id="job-input" name="info" class="form__input form__input-job" type="text" required minlength="2" maxlength="200">
           <span class="job-input-error form__input-error"></span>
         </div>
         <button class="form__submit-button" type="submit">Сохранить</button>
@@ -61,14 +60,14 @@
     <div class="popup__container popup__container_form">
       <button class="popup__close-button" aria-label="Закрыть"></button>
       <h2 class="popup__title">Новое место</h2>
-      <form class="form form_add" novalidate>
+      <form class="form form_add" name="form-add" novalidate>
         <div class="form__input-wrapper">
-          <input id="place-input" class="form__input form__input-place" type="text" placeholder="Название" required
+          <input id="place-input" name="name" class="form__input form__input-place" type="text" placeholder="Название" required
             minlength="2" maxlength="30">
           <span class="place-input-error form__input-error"></span>
         </div>
         <div class="form__input-wrapper">
-          <input id="url-input" class="form__input form__input-url" type="url" placeholder="Ссылка на картинку"
+          <input id="url-input" name="link" class="form__input form__input-url" type="url" placeholder="Ссылка на картинку"
             required>
           <span class="url-input-error form__input-error"></span>
         </div>
@@ -81,7 +80,7 @@
     <div class="popup__container">
       <button class="popup__close-button" aria-label="Закрыть"></button>
       <figure class="popup__figure">
-        <img class="popup__image" alt="" src="./images/photo-cards_elbrus.jpg">
+        <img class="popup__image" alt="" src="<%=require('./images/photo-cards_elbrus.jpg')%>">
         <figcaption class="popup__caption"></figcaption>
       </figure>
     </div>
@@ -97,7 +96,6 @@
       </div>
     </li>
   </template>
-  <script type="module" src="./scripts/index.js"></script>
   </body>
 
 </html>

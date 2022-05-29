@@ -1,10 +1,10 @@
 import './../pages/index.css';
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
-import { PopupWithForm } from './PopupWithForm.js';
-import { UserInfo } from './UserInfo.js';
-import { PopupWithImage } from './PopupWithImage.js';
-import { Section } from './Section.js';
+import { Card } from '../components/Card';
+import { FormValidator } from '../components/FormValidator';
+import { PopupWithForm } from '../components/PopupWithForm';
+import { UserInfo } from '../components/UserInfo';
+import { PopupWithImage } from '../components/PopupWithImage';
+import { Section } from '../components/Section';
 
 const initialCards = [
   {
@@ -40,13 +40,20 @@ const formEdit = document.querySelector('.form_edit');
 const nameInput = formEdit.querySelector('.form__input-name');
 const jobInput = formEdit.querySelector('.form__input-job');
 
-const cardTemplate = document.querySelector('#card-template').content;
+const templateSelector = '#card-template';
 const cardContainer = new Section({ items: initialCards, renderer: renderCards }, '.photo-cards');
 const userInfo = new UserInfo({ userNameSelector: '.profile__title', userInfoSelector: '.profile__subtitle' })
 const popupEdit = new PopupWithForm('.popup_edit', handleFormEditSubmit);
 const popupAdd = new PopupWithForm('.popup_add', handleFormAddSubmit);
 const popupView = new PopupWithImage('.popup_view-image');
 const formValidators = {};
+const validationParams = {
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__submit-button',
+  inactiveButtonClass: 'form__submit-button_inactive',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+};
 
 function fillProfileForm() {
   const profileInfo = userInfo.getUserInfo();
@@ -54,11 +61,9 @@ function fillProfileForm() {
   jobInput.value = profileInfo.info;
 }
 
-function renderCards(container, cards) {
-  cards.forEach((cardData) => {
-    const cardElement = createCard(cardData.name, cardData.link);
-    container.append(cardElement);
-  });
+function renderCards(card) {
+    const cardElement = createCard(card.name, card.link);
+    cardContainer.addItem(cardElement);
 }
 
 function enableValidation(params) {
@@ -72,7 +77,7 @@ function enableValidation(params) {
 }
 
 function createCard(name, link) {
-  const card = new Card(name, link, cardTemplate, popupView.open.bind(popupView));
+  const card = new Card(name, link, templateSelector, popupView.open.bind(popupView));
   return card.createCard();
 }
 
@@ -86,13 +91,13 @@ function handleFormEditSubmit({name, info}) {
 }
 
 function handleEditButtonClick() {
-  formValidators[formEdit.getAttribute('name')].resetValidation();
+  formValidators[formEdit.getAttribute('name')].resetValidation(validationParams);
   fillProfileForm();
   popupEdit.open();
 }
 
 function handleAddButtonClick() {
-  formValidators[formAdd.getAttribute('name')].resetValidation();
+  formValidators[formAdd.getAttribute('name')].resetValidation(validationParams);
   popupAdd.open();
 }
 
@@ -103,10 +108,4 @@ popupAdd.setEventListeners();
 popupView.setEventListeners();
 
 cardContainer.renderElements();
-enableValidation({
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__submit-button',
-  inactiveButtonClass: 'form__submit-button_inactive',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active'
-});
+enableValidation(validationParams);

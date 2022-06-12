@@ -1,11 +1,11 @@
 .photo-card__like-button {
-  background: url(../../../images/photo-card__like-button.svg) no-repeat center;
   width: 22px;
   height: 19px;
   border: none;
-  background-color: transparent;
+  background: transparent url(../../../images/photo-card__like-button.svg) no-repeat center;
   cursor: pointer;
   transition: opacity 1s;
+  margin-bottom: 3px;
 }
 
 .photo-card__like-button:hover {

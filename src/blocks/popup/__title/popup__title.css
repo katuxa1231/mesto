@@ -5,7 +5,7 @@
   font-size: 18px;
   line-height: 22px;
   color: #000;
-  margin: 0 0 75px;
+  margin: 0 0 15px;
 }
 
 @media screen and (min-width: 1024px) {
@@ -13,6 +13,5 @@
     font-size: 24px;
     line-height: 29px;
     text-align: left;
-    margin-bottom: 45px;
   }
 }

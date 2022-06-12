@@ -5,23 +5,19 @@ import { PopupWithForm } from '../components/PopupWithForm';
 import { UserInfo } from '../components/UserInfo';
 import { PopupWithImage } from '../components/PopupWithImage';
 import { Section } from '../components/Section';
-import { Api } from "../components/Api";
-import { PopupWithConfirmation } from "../components/PopupWithConfirmation";
+import { Api } from '../components/Api';
+import { PopupWithConfirmation } from '../components/PopupWithConfirmation';
+import { popupsSelectors, templateSelector, validationParams } from '../utils/constants';
 
-const popupsSelectors = {
-  addPopup: '.popup_add',
-  editPopup: '.popup_edit',
-  imagePopup: '.popup_view-image',
-  confirmPopup: '.popup_confirm',
-  editAvatarPopup: '.popup_edit-avatar'
-}
-const validationParams = {
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__submit-button',
-  inactiveButtonClass: 'form__submit-button_inactive',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active'
-};
+const buttonEdit = document.querySelector('.profile__edit-button');
+const buttonAdd = document.querySelector('.profile__add-button');
+const avatarButton = document.querySelector('.profile__avatar')
+const formEditAvatar = document.querySelector('.form_edit-avatar');
+const formAdd = document.querySelector('.form_add');
+const formEdit = document.querySelector('.form_edit');
+const nameInput = formEdit.querySelector('.form__input-name');
+const jobInput = formEdit.querySelector('.form__input-job');
+
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-42',
   headers: {
@@ -29,19 +25,12 @@ const api = new Api({
     'Content-Type': 'application/json'
   }
 });
-const buttonEdit = document.querySelector('.profile__edit-button');
-const buttonAdd = document.querySelector('.profile__add-button');
-const avatarButton = document.querySelector('.profile__avatar')
-
-const formEditAvatar = document.querySelector('.form_edit-avatar');
-const formAdd = document.querySelector('.form_add');
-const formEdit = document.querySelector('.form_edit');
-const nameInput = formEdit.querySelector('.form__input-name');
-const jobInput = formEdit.querySelector('.form__input-job');
-
-const templateSelector = '#card-template';
 const cardContainer = new Section(renderCards, '.photo-cards');
-const userInfo = new UserInfo({ userNameSelector: '.profile__title', userInfoSelector: '.profile__subtitle', userInfoAvatarSelector: '.profile__avatar' })
+const userInfo = new UserInfo({
+  userNameSelector: '.profile__title',
+  userInfoSelector: '.profile__subtitle',
+  userInfoAvatarSelector: '.profile__avatar'
+})
 const popupEdit = new PopupWithForm(popupsSelectors.editPopup, handleFormEditSubmit);
 popupEdit.setEventListeners();
 const popupAdd = new PopupWithForm(popupsSelectors.addPopup, handleFormAddSubmit);
@@ -89,16 +78,6 @@ function createCard(cardData) {
   return card.createCard();
 }
 
-function renderLoading(popupSelector, isLoading, buttonText) {
-  const popupButton = document.querySelector(`${popupSelector} .form__submit-button`);
-  if (isLoading) {
-    popupButton.textContent = buttonText ?? 'Загрузка...';
-  } else {
-    popupButton.textContent = buttonText ?? 'Сохранить';
-  }
-};
-
-
 function handleLikeButtonClick(card) {
   if (card.isLiked()) {
     api.deleteLike(card.getId())
@@ -120,19 +99,19 @@ function handleLikeButtonClick(card) {
 function handleDeleteButtonClick(card) {
   popupConfirm.open();
   popupConfirm.setConfirmCallback(() => {
-    renderLoading(popupsSelectors.confirmPopup, true, 'Удаление...');
+    popupConfirm.renderLoading(true, 'Удаление...');
     api.deleteCard(card.getId())
       .then(() => {
         card.remove();
         popupConfirm.close();
       })
       .catch((err) => console.log(`Error: ${err}`))
-      .finally(() => renderLoading(popupsSelectors.confirmPopup, false, 'Да'))
+      .finally(() => popupConfirm.renderLoading(false))
   })
 }
 
 function handleFormAddSubmit({ name, link }) {
-  renderLoading(popupsSelectors.addPopup, true);
+  popupAdd.renderLoading(true);
   return api.addCard(name, link)
     .then((res) => {
       const newCard = createCard(res);
@@ -140,29 +119,29 @@ function handleFormAddSubmit({ name, link }) {
       popupAdd.close();
     })
     .catch((err) => console.log(`Error: ${err}`))
-    .finally(() => renderLoading(popupsSelectors.addPopup, false, 'Создать'))
+    .finally(() => popupAdd.renderLoading(false, 'Создать'))
 }
 
 function handleFormEditSubmit({ name, info }) {
-  renderLoading(popupsSelectors.editPopup, true);
+  popupEdit.renderLoading(true);
   return api.updateUserInfo(name, info)
     .then((res) => {
       userInfo.setUserInfo(res.name, res.about);
       popupEdit.close();
     })
     .catch((err) => console.log(`Error: ${err}`))
-    .finally(() => renderLoading(popupsSelectors.editPopup, false))
+    .finally(() => popupEdit.renderLoading(false))
 }
 
 function handleFormEditAvatarSubmit({ avatar }) {
-  renderLoading(popupsSelectors.editAvatarPopup, true);
+  popupEditAvatar.renderLoading(true);
   return api.updateUserAvatar(avatar)
     .then((res) => {
       userInfo.setUserAvatar(res.avatar)
       popupEditAvatar.close();
     })
     .catch((err) => console.log(`Error: ${err}`))
-    .finally(() => renderLoading(popupsSelectors.editAvatarPopup, false))
+    .finally(() => popupEditAvatar.renderLoading(false))
 }
 
 function handleEditButtonClick() {
@@ -187,9 +166,11 @@ avatarButton.addEventListener('click', handleAvatarClick);
 
 enableValidation(validationParams);
 
-Promise.all([api.getInitialCards(), api.getUserInfo()]).then(([cards, userData]) => {
-  currentUser = userData;
-  cardContainer.renderElements(cards);
-  userInfo.setUserInfo(currentUser.name, currentUser.about);
-  userInfo.setUserAvatar(currentUser.avatar);
-})
+Promise.all([api.getInitialCards(), api.getUserInfo()])
+  .then(([cards, userData]) => {
+    currentUser = userData;
+    cardContainer.renderElements(cards);
+    userInfo.setUserInfo(currentUser.name, currentUser.about);
+    userInfo.setUserAvatar(currentUser.avatar);
+  })
+  .catch((err) => console.log(`Error: ${err}`))
